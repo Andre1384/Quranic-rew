@@ -13,7 +13,7 @@ function SurahList() {
   const location = useLocation();
 
   useEffect(() => {
-    fetch('http://api.quran.com/api/v4/chapters')
+    fetch('https://api.quran.com/api/v4/chapters')
       .then(res => res.json())
       .then(data => {
         setSurahs(data.chapters);
