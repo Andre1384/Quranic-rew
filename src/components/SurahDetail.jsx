@@ -9,13 +9,12 @@ function SurahDetail() {
   const [surahName, setSurahName] = useState('');
   const [surahTranslation, setSurahTranslation] = useState('');
   const [qaris, setQaris] = useState([]);
-  const [selectedQari, setSelectedQari] = useState(1); // Default Qari ID
+  const [selectedQari, setSelectedQari] = useState(1);
   const [audioUrl, setAudioUrl] = useState('');
   const [loading, setLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(new Audio());
 
-  // Fetch Qari list once
   useEffect(() => {
     const fetchQaris = async () => {
       try {
@@ -29,7 +28,6 @@ function SurahDetail() {
     fetchQaris();
   }, []);
 
-  // Fetch surah + audio (1 surah) setiap kali id atau Qari berubah
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -144,7 +142,12 @@ function SurahDetail() {
 
       <div className="space-y-6">
         {verses.map((verse, index) => (
-          <div key={verse.id} className="bg-gray-900 p-4 rounded-lg shadow-md">
+          <div key={verse.id} className="bg-gray-900 p-4 rounded-lg shadow-md relative">
+            {/* Nomor Ayat */}
+            <div className="absolute -top-3 -left-3 bg-yellow-400 text-black font-bold rounded-full w-8 h-8 flex items-center justify-center shadow-md">
+              {verse.verse_key.split(':')[1]}
+            </div>
+
             <p className="text-xl mb-2 text-right font-arabic">{verse.text_uthmani}</p>
             <p className="text-gray-300 mt-2">{cleanTranslation(translations[index]?.text || '')}</p>
           </div>
